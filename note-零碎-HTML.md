@@ -36,6 +36,12 @@ a标签嵌套易出现莫名的兄弟标签，需要避开
 - 标准模式盒模型宽高=内容区宽高；怪异模式盒模型宽高=内容区宽高+内边距padding+边框border
 - 标准模式行内元素基线对齐；怪异模式行内元素下边框对齐
 
+## 影子DOM
+
+独立封装的HTML代码，css/js等逻辑隔离，如`<video></video>`。
+
+与iframe的区别：iframe作为一个独立的页面，shadow dom是当前HTML的代码片段。
+
 
 # 标签实例
 ## DL DT DD
@@ -116,8 +122,6 @@ dd definition description 自定义描述
 ```html
 <embed src='hello.swf' />
 ```
-
-
 
 ## figure
 
