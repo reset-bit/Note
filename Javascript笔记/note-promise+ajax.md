@@ -23,9 +23,15 @@
 
 ## `catch()`
 
-`then()`返回失败`promise`对象，可以直接跳转`catch()`。当前一般仅使用`then()`关注成功情况，使用`catch()`关注失败情况，但`catch()`不一定返回失败的`promise`。失败的`promise`必须要`有catch()`处理，否则会报错。
+`then()`返回失败`promise`对象，可以直接跳转`catch()`。当前一般仅使用`then()`关注成功情况，使用`catch()`关注失败情况，但`catch()`不一定返回失败的`promise`。失败的`promise`必须要有`catch()`处理，否则会报错。
 
-`catch()`只捕捉在其之前，同时是其作用域的failures。
+`catch()`只捕捉在其之前，同时是其作用域的异常。
+
+> then(resolve, reject)中reject与catch区别：
+>
+> - reject是用来抛出异常的，catch是用来处理异常的
+> - reject是promise的方法，catch是promise实例的方法 (promise.protptype.catch)
+> - 三者捕获错误信息时使用就近原则，即若promise内部存在错误，自reject和catch都存在的情况下，只有reject能捕获到错误
 
 ## `finally()`
 
@@ -98,36 +104,6 @@ wait(1000).then(() => {
 }).then({
     console.log('go shopping end');
 });
-
-// 顺序执行异步操作：“同步优先，异步靠边，回调垫底”
-setTimeout(function() {
-	console.log(1);
-}, 0);
-async function async1() {
-	console.log(2);
-	const data = await async2();
-	console.log(3);
-	return data;
-}
-async function async2() {
-	return new Promise((resolve) => {
-		console.log(4);
-		resolve('async2的结果');
-	}).then((data) => {
-		console.log(5);
-		return data;
-	});
-}
-async1().then((data) => {
-	console.log(6);
-	console.log(data);
-});
-new Promise(function(resolve) {
-	console.log(7);
-}).then(function() {
-	console.log(8);
-});
-// 2 4 7 5 3 6 async2
 ```
 
 # Ajax(Asynchronous Javascript and xml)
