@@ -38,7 +38,7 @@ js基本类型：string/number/boolean/symbol/null/undefined
 
    引用类型：array/function/object...
 
-ts在此基础上新增：void/any/never/元组/枚举/高级类型
+ts在此基础上新增：void/any/never/tuple/enum/高级类型
 
 ```ts
 // 为变量赋值与声明类型不符的数据将会报错
@@ -94,10 +94,4 @@ let endless = () => {
 }
 ```
 
-
-
 子类型的值可以赋值给父类型的变量
-
-
-
-task：类、枚举、函数、泛型、类型推论、类型兼容性

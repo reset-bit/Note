@@ -168,9 +168,9 @@ $.ajax({
 });
 ```
 
-fetch()是 XMLHttpRequest 的升级版，用于在 JavaScript 脚本里面发出 HTTP 请求。 浏览器原生提供这个对象。
+fetch()用于在 JavaScript 脚本里面发出 HTTP 请求，可通过`window.fetch()`调用。
 
-优势：语法简洁，更加语义化；基于标准promise实现，支持async/await；同构方便；更加底层，脱离XHR，API丰富
+优势：语法简洁，更加语义化，对state/request/response等进行封装；基于标准promise实现，支持async/await；同构方便；更加底层，脱离XHR，API丰富
 
 缺点：层次太低，需要封装；只对网络请求报错，400、500当做成功请求；默认不会带cookie，设置`fetch(url, {credentials: 'include'})`
 

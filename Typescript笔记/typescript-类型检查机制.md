@@ -145,3 +145,58 @@ let log2 = <U>(x: U): U => {return x;}
 log1 = log2;// no error 定义相同并且没有指定类型参数
 ```
 
+## 类型保护
+
+ts能够在特定的区块中保证变量的属于某种特定的类型
+
+```ts
+enum Type = {Strong, Week};
+class Java {
+    helloJava() {}
+    java: any
+}
+class Javascript {
+    helloJavascript() {}
+    javascript: any
+}
+// 依据传入语言类型，获取对应语言并执行相关方法
+function getLanauage(type: Type, x: string | number) {
+    let lang = type === Type.Strong ? new Java() : new Javascript();
+	// 0-类型断言，未使用类型保护。不建议，比较繁琐
+    if((lang as Java).helloJava) {
+        (lang as Java).helloJava();
+    } else {
+        (lang as Javascript).helloJavascript();
+    }
+    // 1-instanceof，根据对象是否为类实例来判断
+    if(lang instanceof Java) {
+        lang.helloJava();
+    } else {
+        lang.helloJavascript();
+    }
+    // 2-in，根据是否含有类属性来判断
+    if('java' in lang) {
+        lang.helloJava();
+    } else {
+        lang.helloJavascript();
+    }
+    // 3-typeof，根据参数类型来判断
+    if(typeof x === 'string') {
+        console.log(x.length);
+    } else {
+        x.toFixed(2);// 数字保留2位小数，成为字符串
+	}
+    // 4-自封装类型保护函数
+    function isJava(lang: Java | Javascript): lang as Java {// 类型谓词
+        return (lang as Java).helloJava !== undefined;
+    }
+    if(isJava(lang)) {
+        lang.helloJava();
+    } else {
+        lang.helloJavascript();
+    }
+    return lang;
+}
+getLanguage(Type.Strong);
+```
+
