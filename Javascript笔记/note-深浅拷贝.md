@@ -10,10 +10,27 @@
 
 ## 浅拷贝
 
-- `Object.assign({}, obj)`。当object只有一层时，是深拷贝
-- `let newObj = Object.create(obj)`
-- `newArr.concat(arr)`
-- `let newArr = arr.slice(startPos, endPos)`
+### 对象
+
+```js
+newObj = {.};
+Object.assign(newObj, obj);
+newObj = Object.create(obj);
+```
+
+### 数组
+
+```js
+newArr = [...arr];
+newArr = arr.map(x => x);
+newArr = arr.filter(() => true);
+newArr = arr.slice();
+newArr = arr.concat();
+newArr = Array.from(arr);// Array.from()将任何可迭代对象转化为数组
+newArr = arr.copyWithin(0);// es6
+```
+
+
 
 ## 深拷贝
 
