@@ -154,3 +154,44 @@ for(let k in obj) {// 遍历对象所有【键名】，k为字符串
     console.log(obj[k]);
 }
 ```
+
+- `new Object()`与`Object.create()`的区别：`new Object()`通过构造函数来创建对象，添加的属性在自身实例下。`Object.create()`返回一个__ proto __为指定对象的新对象。
+
+  ```javascript
+  // new Object()
+  let obj1 = {a:1};
+  let obj2 = new Object(obj1);
+  console.log(obj2);// {a:1}
+  console.log(obj2.__proto__);// {}
+  console.log(obj2.a);// 1
+  
+  // Object.create()
+  let obj1 = {a:1};
+  let obj2 = Object.create(obj1);
+  console.log(obj2);// {}
+  console.log(obj2.__proto__);// {a:1}
+  console.log(obj2.a);// 1
+  ```
+
+- `new Object()`与`{}`的区别：`{}`是对象字面量。如果`new Object()`中没有传入参数，与`{}`相同。传入`String`返回`String`，类似`new String()`。传入`Number`同理。**字面量可以立即求值，而`new Object()`本质上是方法，过程中涉及到堆栈调用及释放。故字面量赋值比`new Object()`高效。**
+
+> **字面量**：不用new操作符来创建实例的、一种简单易阅读的方法。包括字符串字面量、数组字面量、对象字面量、函数字面量。
+
+- `new String()`与‘’的区别：
+  `let s = 'text';`s是一个原始数据类型，没有方法，只是一个指向原始数据存储器引用的指针，变量存储在**常量池**中，而`new String()`变量存储在**堆**中。因此相较于`let s = new String('text');`有**更快的随机访问速度**。当调用`s.charAt(i)`时，js会对其进行自动包装。对`typeof s`来说，更准确的是`s.valueOf(s).prototype.toString.call = [object String]`。**自动装箱行为**会根据需要进行来回包装类型，但标准操作速度很快。
+
+  如果想强制自动装箱或将原始类型转换为包装类型，可以使用`Object.prototype.valueOf()`
+
+    ```javascript
+  let a = 'some';
+  console.log(typeof a);// string，
+  
+  let a = new String('some');
+  console.log(typeof a);// object，String对象
+  
+  let a = new Object('some');
+  console.log(typeof a);// object，String对象
+  
+    ```
+
+## 

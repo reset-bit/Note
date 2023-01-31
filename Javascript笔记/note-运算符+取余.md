@@ -16,7 +16,7 @@ console.log('name' in Person);// true
 ```
 
 
-　## 双等号==
+# 双等号==
 
 先将字符串/布尔值进行类型转换，转为基本数据类型。主要调用`valueOf()、toString()`两种方法。前者优先级更高。
 

@@ -1,4 +1,6 @@
-# 浅拷贝和深拷贝
+[toc]
+
+# 深浅拷贝
 
 引用对象真实数据存放在堆内存，栈中存放该对象的引用。
 
@@ -29,8 +31,6 @@ newArr = arr.concat();
 newArr = Array.from(arr);// Array.from()将任何可迭代对象转化为数组
 newArr = arr.copyWithin(0);// es6
 ```
-
-
 
 ## 深拷贝
 

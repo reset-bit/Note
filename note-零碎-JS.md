@@ -14,7 +14,7 @@
 - `defaultPlaybackRate`设置或返回音/视频播放的默认速度
 - `playbackRate`设置或返回音/视频当前的返回速度
 
-### innnerHTML & innerText
+### innerHTML与innerText
 
 ```html
 <html>
@@ -30,8 +30,6 @@
 </html>
 ```
 
-
-
 ## 变量
 1. 未声明直接赋值不报错；未声明直接使用报错`Referrence error`；声明直接使用值为undefined
 2. 只要undefined参与运算，结果总为NaN
@@ -41,8 +39,6 @@
 2. 注意函数绑定时间与函数调用时间
 3. 实参与形参个数无绝对关系
 4. `function Person() {}; let obj1 = new Person(); let obj2 = Person();`则`obj1`中`this`指向`obj1`，`obj2`中`this`指向`window`
-
-
 
 
 ## 事件

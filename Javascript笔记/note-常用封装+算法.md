@@ -1,3 +1,37 @@
+[toc]
+
+# 常用封装
+
+## 判断两个对象内容相等
+
+```javascript
+// 递归实现
+function isObjectValueEqual(a, b) {
+    let aProps = Object.getOwnPropertyNames(a);
+    let bProps = Object.getOwnPropertyNames(b);
+    if(aProps.length !=== bProps.length) return false;
+    for(let i = 0; i < aProps.length; ++i) {
+        let propName = aProps[i];
+        // 若b没有该属性值
+        if(!b.hasOwnProperty(propName)) return false;
+        // 若当前比较属性值是对象，并且递归之后返回false
+        if(a[propName] instanceof Object && !isObjectValueEqual(a[propName], b[propName])) return false;
+    }
+    return true;
+}
+```
+
+## 判断简单类型的数组内容相等
+
+```javascript
+// 1.
+JSON.stringify(arr1.sort()) === JSON.stringify(arr2.sort())
+// 2.
+arr1.sort().toString() === arr2.sort().toString()
+```
+
+
+
 # 动态规划
 
 ## 1.房间移动的最少次数

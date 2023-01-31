@@ -1,7 +1,6 @@
-# Javascript·语法专题
 [toc]
-## 1.错误处理机制
-### 1.1Error及其派生对象
+# 1.错误处理机制
+## 1.1Error及其派生对象
 javascript解析或运行时，一旦发生错误，引擎即抛出错误对象。程序将中断在发生错误的地方，不再向下执行。
 Error对象必须有message属性，表示提示信息。
 
@@ -24,12 +23,12 @@ function UserError(message){
 UserError.prototype = new Error();//继承
 UserError.prototype.constructor = UserError;
 ```
-### 1.2throw && try...catch
+## 1.2throw && try...catch
 程序遇到throw将终止，可抛出任何值
 
 finally语句即使在try...catch中有return语句也依旧会执行
 
-## 2.编程风格
+# 2.编程风格
 - 全局变量对任何一个代码块都可读可写，使用大写字母表示变量名
 - 由于变量提升，建议将变量声明放在代码块头部
 - 使用严格相等运算符===
@@ -56,7 +55,7 @@ switch (action) {
 }
 ```
 
-## 3.console
+# 3.console
 ```javascript
 console.log();//%c可输出css代码的参数
 console.info();//相较于log在输出信息的前面加蓝色图标

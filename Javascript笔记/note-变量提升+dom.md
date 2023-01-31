@@ -1,3 +1,5 @@
+[toc]
+
 # 变量
 
 1. 大小写敏感，仅骆驼命名法（cuiDongPing）+Pascal命名法（Cuidongping）
@@ -16,29 +18,10 @@
 	> 关于即时编译（JIT），JIT不是完整的编译器，在执行前进行编译。
 	> 详见：https://blog.csdn.net/qq_38836118/article/details/98878286
 
-5. `arguments:`类数组，总是与实际传递的实参相关联。形参个数多于实参，则形参为`undefined`。在非严格模式（且不存在默认参数）下，`arguments`和形参变量存在映射机制；在严格模式下，二者不存在映射机制。
-	
-	```javascript
-	function side(arr) {arr[0] = arr[2];}
-	function a(a, b, c = 3) {
-	    c = 10;// 改变的是形参c，不是arguments[2]
-	    side(arguments);
-	    console.log(arguments);// [1,1,1]
-	    return a + b + c;// 1 + 1 + 10
-	}
-	console.log(a(1, 1, 1));// 12
-	// ---------------
-	function a(a, b, c) {
-	    c = 10;// 改变的是形参c和arguments[2]
-	    side(arguments);
-	    console.log(arguments);// [10,1,10]
-	    return a + b + c;// 10 + 1 + 10
-	}
-	console.log(a(1, 1, 1));// 21
-	```
 
 
 # dom
+
 window代表整个浏览器（包括地址栏、前进……），可简写省略。声明的全局变量相当为window动态添加属性。
 ```javascript
 	window.location.href = "";

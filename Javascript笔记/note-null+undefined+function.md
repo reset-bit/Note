@@ -9,7 +9,10 @@
 3. 调用函数时未提供参数，该参数为undefined
 4. 函数没有返回值时，返回undefined
 
+
+
 # 函数
+
 函数只是一个可以执行的值。可以把函数赋值给变量和对象的属性、当作参数传入其它函数、作为函数的结果返回。
 
 ## 声明方法
@@ -42,9 +45,8 @@ var print = Function('...');//效果同上
 3. 同名参数取最后出现的那个值
 4. 调用函数时令形参赋值，该值是形参默认值
 
-### 2.4arguments对象
-类数组对象，包含函数运行时的所有参数，访问如`arguments[0]`，仅在函数体内部可以使用。
-正常模式下，arguments对象可以在运行时修改；严格模式下（`use strict;`），arguments对象与函数参数不具有联动关系，内存相互独立。
+### arguments对象
+类数组对象，包含函数运行时的所有参数，访问如`arguments[0]`，仅在函数体内部可以使用。总是与实际传递的实参相关联。形参个数多于实参，则形参为`undefined`。在非严格模式（且不存在默认参数）下，`arguments`和形参变量存在映射机制；在严格模式下，二者不存在映射机制。
 
 常用应用场景：未知参数的参数调用	
 
@@ -52,18 +54,23 @@ var print = Function('...');//效果同上
 `.length`属性：用于判断函数调用时携带参数个数；
 `.callee`属性：返回对应的原函数（严格模式禁用）
 
-## 闭包
-链式作用域结构（chain scope）导致在函数作用域外部无法访问函数内部声明变量。简单理解成“定义在一个函数内部的函数”，最大的特点是可以【记住诞生的环境】并且【让这些变量始终保存在内存中】。因此可以看作是函数内部作用域的一个接口。
-```javascript
-function f1(){
-	var n = 999;
-	function f2(){//闭包
-		console.log(n);
-	}
-	return f2;
+```js
+function side(arr) {arr[0] = arr[2];}
+function a(a, b, c = 3) {
+    c = 10;// 改变的是形参c，不是arguments[2]
+    side(arguments);
+    console.log(arguments);// [1,1,1]
+    return a + b + c;// 1 + 1 + 10
 }
-var result = f1();
-result();//999
+console.log(a(1, 1, 1));// 12
+// ---------------
+function a(a, b, c) {
+    c = 10;// 改变的是形参c和arguments[2]
+    side(arguments);
+    console.log(arguments);// [10,1,10]
+    return a + b + c;// 10 + 1 + 10
+}
+console.log(a(1, 1, 1));// 21
 ```
 
 ## 立即调用的函数表达式IIFE
@@ -73,10 +80,23 @@ var i = function(){return 10;}();
 (function(){return 10;}());
 ```
 
-## this
-1. 作为直接调用的函数，指向`window`
-2. 作为事件处理函数，指向关联dom
-3. 作为对象内方法，指向对象本身
-4. 作为构造函数、被new运算符调用的函数，指向构造函数返回的对象
-5. 作为`Function.prototype.call/apply`调用的函数，指向指定的对象
+## Function.prototype
+
+```javascript
+// 强行指定被调用函数内部this指向
+Function.prototype.call// 如fun.call(10, 10);第一个参数默认this=Number{10}。对已经绑定的this再call将失效。apply语法糖
+Function.prototype.apply// 接收两个参数，第一个参数指定函数体内this指向，第二个参数为带下标的参数集合，可以是数组或类数组。返回值为【调用了指定this和参数的函数】的结果
+
+//p1
+document.querySelector(".aa").onclick = function(e) {...}
+//p2
+var handler = document.querySelector(".aa").onclick;
+document.querySelector(".aa").onclick = function(e) {
+	if(typeof handler === 'function') {
+		handler.call(this, e);
+	}...
+}
+-----------------
+var fun1 = fun.bind(obj);// 返回一个新的、this指向指定位置的函数
+```
 
