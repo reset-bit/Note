@@ -156,6 +156,53 @@ Example.prototype.sum = (a, b) => a + b;// 原型方法
 
 
 
+# weakMap & weakSet
+
+Map：key-value，key唯一；Set：元素唯一
+
+相比于Map和Set，weakMap和weakSet持有的是每个对象（键）的弱引用，这意味着即使有其他引用存在时，垃圾回收机制也能正确运行。实际应用中，常将dom对象放入weakMap/weakSet中，起到dom缓存的作用
+
+正是由于弱引用，weakMap和weakSet不可遍历
+
+```js
+// 内存泄漏
+const obj = {};
+const map = new Map();
+map.set('o1', obj);
+obj = null;
+
+// weakMap-key为对象
+const wm = new WeakMap();
+const o1 = { name: 'foo' };
+wm.set(o1， 1);
+wm.has(o1);// true
+wm.get(o1);// 1
+wm.delete(o1);
+// weakSet
+const ws = new WeakSet();
+ws.add(o1);
+ws.has(o1);// true
+ws.delete(o1);
+```
+
+weakMap的另外一种用途是保留私有数据
+
+```js
+const wm = new WeakMap();
+class Counter {
+    constructor() {
+        wm.set(this, {
+            _count: 0
+        });
+    }
+    getCount() {
+        return wm.get(this)._count;
+    }
+}
+```
+
+
+
 # ...扩展收缩运算符
 
 ```javascript
@@ -238,5 +285,4 @@ void 0;// 快
 // 十进制指数
 10000000000 === 1e10
 ```
-
 
